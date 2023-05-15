@@ -1,9 +1,10 @@
 <script setup>
-import { } from 'vue'
 
 </script>
 <template>
-  <div></div>
+    <div>
+        分类
+    </div>
 </template>
 
 <style scoped lang="less"></style>

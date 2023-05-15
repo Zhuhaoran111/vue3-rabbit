@@ -1,9 +1,10 @@
 <script setup>
-import { } from 'vue'
 
 </script>
 <template>
-  <div></div>
+    <div>
+        登录
+    </div>
 </template>
 
 <style scoped lang="less"></style>
