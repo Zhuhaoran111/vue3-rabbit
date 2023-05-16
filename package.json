@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "-": "^0.0.1",
+    "@vueuse/core": "^10.1.2",
     "axios": "^1.4.0",
     "D": "^1.0.0",
     "element-plus": "^2.3.4",

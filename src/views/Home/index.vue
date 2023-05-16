@@ -2,7 +2,9 @@
 
 </script>
 <template>
-    <div>我是Home页</div>
+    <div style="height:300px">
+        我是Home页
+    </div>
 </template>
 
 <style scoped lang="less"></style>
