@@ -1,18 +1,8 @@
 <script setup>
 //引入接口
-import { ref } from 'vue'
-import { getCategoryApi } from '@/api/layout';
-import { onMounted } from 'vue';
-
-const categoryList = ref([])
-const getCategory = async () => {
-    const res = await getCategoryApi()
-    categoryList.value = res.result
-}
-
-onMounted(() => {
-    getCategory()
-})
+import { useCategoryStore } from '@/stores/category';
+//使用pinia中的数据,先引入
+const categoryStore = useCategoryStore() //得到一个实例对象,然后用实例对象去点
 
 
 </script>
@@ -24,7 +14,7 @@ onMounted(() => {
                 <RouterLink to="/">小兔鲜</RouterLink>
             </h1>
             <ul class="app-header-nav">
-                <li class="home" v-for="(item, index) in categoryList" :key="item.id">
+                <li class="home" v-for="(item, index) in categoryStore.categoryList" :key="item.id">
                     <RouterLink to="/">{{ item.name }}</RouterLink>
                 </li>
             </ul>
