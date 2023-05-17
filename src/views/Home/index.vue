@@ -4,6 +4,7 @@ import homeBanner from './components/homeBanner.vue'
 import homeNew from './components/homeNew.vue'
 import homeHot from './components/homeHot.vue'
 import homeProduct from './components/homeProduct.vue'
+import homePanel from './components/homePanel.vue'
 </script>
 <template>
     <div class="container">
