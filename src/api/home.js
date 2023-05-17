@@ -14,8 +14,16 @@ export function getNewData(){
     })
 }
 
+//获得人气推荐的
 export function getHotRecommend(){
     return httpInstance({
         url:'/home/hot'
+    })
+}
+
+//产品列表
+export function getProductList(){
+    return httpInstance({
+        url:'/home/goods'
     })
 }
