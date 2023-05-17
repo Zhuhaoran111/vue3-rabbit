@@ -1,7 +1,8 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { getCategoryApi } from '@/api/category'
-import { onMounted } from 'vue';
+import { getBannerApi } from '@/api/home'
+
 //引入路由
 import { useRoute } from 'vue-router'
 
@@ -11,12 +12,24 @@ const getCateGoryList = async () => {
     //route.params.id-----parmas就用params,query就用query
     const res = await getCategoryApi(route.params.id)
     cateGoryData.value = res.result
-    console.log(res)
 
 }
+const bannerList = ref([])
+//获取轮播图接口数据
+const getBanner = async () => {
+    const res = await getBannerApi(
+        {
+            distributionSite: '2'
+        }
+    )
+    bannerList.value = res.result
+}
+
 onMounted(() => {
-    getCateGoryList()
+    getCateGoryList() //获取分类列表
+    getBanner() //获取轮播图
 })
+//获取轮播图
 
 </script>
 
@@ -31,12 +44,59 @@ onMounted(() => {
                     <el-breadcrumb-item>{{ cateGoryData.name }}</el-breadcrumb-item>
                 </el-breadcrumb>
             </div>
+            <!-- 轮播图 -->
+            <div class="home-banner">
+                <el-carousel height="500px">
+                    <el-carousel-item v-for="item in bannerList" :key="item.id">
+                        <img :src="item.imgUrl" alt="">
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+            <!-- 全部分类 -->
+            <div class="sub-list">
+                <h3>全部分类</h3>
+                <ul>
+                    <li v-for="i in cateGoryData.children" :key="i.id">
+                        <RouterLink to="/">
+                            <img :src="i.picture" />
+                            <p>{{ i.name }}</p>
+                        </RouterLink>
+                    </li>
+                </ul>
+            </div>
+            <!-- 这是封装的goodsItem -->
+            <div class="ref-goods" v-for="item in cateGoryData.children" :key="item.id">
+                <div class="head">
+                    <h3>- {{ item.name }}-</h3>
+                </div>
+                <div class="body">
+                    <goodsItem v-for="goods in item.goods" :goods="goods" :key="goods.id"></goodsItem>
+                </div>
+            </div>
+
+
+
+
         </div>
     </div>
 </template>
 
 
 <style scoped lang="scss">
+.home-banner {
+    width: 1240px;
+    height: 500px;
+    margin: 0 auto;
+    left: 0;
+    top: 0;
+
+
+    img {
+        width: 100%;
+        height: 500px;
+    }
+}
+
 .top-category {
     h3 {
         font-size: 28px;

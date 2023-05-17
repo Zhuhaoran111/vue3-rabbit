@@ -15,8 +15,8 @@ const categoryStore = useCategoryStore() //得到一个实例对象,然后用实
             </h1>
             <ul class="app-header-nav">
                 <li class="home" v-for="(item, index) in  categoryStore.categoryList " :key="item.id">
-                    <!-- 二级路由的跳转 -->
-                    <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
+                    <!-- 二级路由的跳转  active-class="active" 激活样式点击选中-->
+                    <RouterLink active-class="active" :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
                 </li>
             </ul>
             <div class="search">

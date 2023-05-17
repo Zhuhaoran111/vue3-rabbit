@@ -1,9 +1,14 @@
 import httpInstance from "@/utils/http";
 
 //获取轮播图数据
-export function getBannerApi(){
+export function getBannerApi(parmas={}){
+    //默认为1，商品为2,如果不传默认就是1，传了就是2
+    const {distributionSite='1'}=parmas
    return httpInstance({
-        url:'/home/banner'
+        url:'/home/banner',
+        parmas:{
+            distributionSite
+        }
    })
 }
 
