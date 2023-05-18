@@ -18,7 +18,7 @@ import {lazyPlugin} from '@/directives'
 
 
 getCategory().then((res)=>{
-    console.log(res)
+
 })
 const app = createApp(App)
 
