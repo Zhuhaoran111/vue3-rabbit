@@ -2,15 +2,17 @@
 import { ref, onMounted } from 'vue'
 import { getCategoryApi } from '@/api/category'
 import { getBannerApi } from '@/api/home'
+import { onBeforeRouteUpdate } from 'vue-router'
 
 //引入路由
 import { useRoute } from 'vue-router'
 
 const cateGoryData = ref({})
 const route = useRoute()  //获取实例
-const getCateGoryList = async () => {
+//这里的id默认要是route.params.id，传了就用最新的数据
+const getCateGoryList = async (id = route.params.id) => {
     //route.params.id-----parmas就用params,query就用query
-    const res = await getCategoryApi(route.params.id)
+    const res = await getCategoryApi(id)
     cateGoryData.value = res.result
 
 }
@@ -26,10 +28,18 @@ const getBanner = async () => {
 }
 
 onMounted(() => {
-    getCateGoryList() //获取分类列表
+    getCateGoryList() //获取分类列表·
     getBanner() //获取轮播图
 })
-//获取轮播图
+
+//目标：路由参数变化的时候，可以把分类数据接口重新发送
+//to是目标路由对象，里面有params最新的参数
+onBeforeRouteUpdate((to) => {
+    //存在问题：要使用最新的路由参数请求最新的分类数据
+    getCateGoryList(to.params.id)
+    //把最新的路由id带过去
+})
+
 
 </script>
 
@@ -118,7 +128,6 @@ onMounted(() => {
             li {
                 width: 168px;
                 height: 160px;
-
 
                 a {
                     text-align: center;
