@@ -33,7 +33,11 @@ const router = createRouter({
        path:'/login',
        component:Login
      }
-  ]
+  ],
+  //路由行为的配置项----滚动滚动条时，选择其他分类会重新回到顶部
+  scrollBehavior(){
+    return {top:0}
+  }
 })
 
 export default router
