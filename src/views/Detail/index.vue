@@ -7,6 +7,7 @@ import { getDetail } from '@/api/detail'
 import { useRoute } from 'vue-router';
 //引入组件
 import detailHot from './components/detailHot.vue'
+import imgViw from '@/components/imgView/index.vue'
 
 //逻辑区域
 const route = useRoute()  //获取路由实例
@@ -52,7 +53,7 @@ onMounted(() => {
                     <div class="goods-info">
                         <div class="media">
                             <!-- 图片预览区 -->
-
+                            <imgViw></imgViw>
                             <!-- 统计数量 -->
                             <ul class="goods-sales">
                                 <li>
