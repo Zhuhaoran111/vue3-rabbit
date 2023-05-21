@@ -5,6 +5,8 @@ import { onMounted, ref } from 'vue'
 import { getDetail } from '@/api/detail'
 //获取路由用于获取参数的id
 import { useRoute } from 'vue-router';
+//引入组件
+import detailHot from './components/detailHot.vue'
 
 //逻辑区域
 const route = useRoute()  //获取路由实例
@@ -133,7 +135,10 @@ onMounted(() => {
                         </div>
                         <!-- 24热榜+专题推荐 -->
                         <div class="goods-aside">
-
+                            <!-- 24小时类型是1 -->
+                            <detailHot :hot-type="1"></detailHot>
+                            <!-- 周类型是2 -->
+                            <detailHot :hot-type="2"></detailHot>
                         </div>
                     </div>
                 </div>
