@@ -30,6 +30,24 @@ const rules = ref({
         }
     ]
 })
+
+//获取form实例做统一校验(这是vue3获取实例的方法，直接获取即可)
+//vue2写法是this.$refs.formRef
+const formRef = ref(null)
+
+const login = () => {
+    formRef.value.validate((valid) => {
+        //valid：true通过校验  false就是不通过校验
+        if (valid) {
+            console.log('通过校验');
+        } else {
+            console.log('不通过校验')
+        }
+    })
+}
+
+
+
 </script>
 
 
@@ -54,7 +72,8 @@ const rules = ref({
                 </nav>
                 <div class="account-box">
                     <div class="form">
-                        <el-form :model="form" :rules="rules" label-position="right" label-width="60px" status-icon>
+                        <el-form ref="formRef" :model="form" :rules="rules" label-position="right" label-width="60px"
+                            status-icon>
                             <el-form-item prop="account" label="账户">
                                 <el-input v-model="form.account" />
                             </el-form-item>
@@ -66,7 +85,7 @@ const rules = ref({
                                     我已同意隐私条款和服务条款
                                 </el-checkbox>
                             </el-form-item>
-                            <el-button size="large" class="subBtn">点击登录</el-button>
+                            <el-button size="large" class="subBtn" @click="login">点击登录</el-button>
                         </el-form>
                     </div>
                 </div>
