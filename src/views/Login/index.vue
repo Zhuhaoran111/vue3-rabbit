@@ -3,11 +3,17 @@ import { ref } from 'vue'
 // import { ElMessage } from 'element-plus';
 // import 'element-plus/theme-chalk/el-message.css'
 
-//引入api
+//引入api----已被pinia管理
 import { loginApi } from '@/api/user'
 
 //引入路由
 import { useRouter } from 'vue-router';
+
+//调入pinia里面的方法和数据
+import { useUserStore } from '@/stores/user'
+const userStore = useUserStore()  //获取实例，直接可以调取pinia里面的方法和参数
+
+
 
 const router = useRouter()  //获取路由的实例方法
 
@@ -50,9 +56,7 @@ const login = () => {
     formRef.value.validate(async (valid) => {
         //valid：true通过校验  false就是不通过校验
         if (valid) {
-
-            const res = await loginApi({ account, password })
-            console.log(res)
+            await userStore.getUserInfo({ account, password })
             //1提示登录成功
             ElMessage({
                 type: 'success',
@@ -62,7 +66,10 @@ const login = () => {
             router.replace({ path: '/' })
 
         } else {
-            console.log('不通过校验')
+            ElMessage({
+                type: 'success',
+                message: '登录成功'
+            })
         }
     })
 }
