@@ -7,16 +7,22 @@ import { getDetail } from '@/api/detail'
 import { useRoute } from 'vue-router';
 //引入组件
 import detailHot from './components/detailHot.vue'
-import imgViw from '@/components/imgView/index.vue'
-
+// import imgViw from '@/components/imgView/index.vue'
+// import XtxSku from '@/components/XtxSku/index.vue'
 //逻辑区域
 const route = useRoute()  //获取路由实例
 const detailDataList = ref([])
 const getDetailList = async () => {
     const res = await getDetail(route.params.id)
-
     detailDataList.value = res.result
 
+}
+
+//sku规格被操作时
+const skuChange = (sku) => {
+    //选择1个：无效sku
+    //选择2个：有效sku
+    console.log(sku)
 }
 
 
@@ -55,7 +61,7 @@ onMounted(() => {
                     <div class="goods-info">
                         <div class="media">
                             <!-- 图片预览区 -->
-                            <imgViw :imageList="detailDataList.mainPictures"></imgViw>
+                            <XtximageView :imageList="detailDataList.mainPictures"></XtximageView>
                             <!-- 统计数量 -->
                             <ul class="goods-sales">
                                 <li>
@@ -104,7 +110,7 @@ onMounted(() => {
                                 </dl>
                             </div>
                             <!-- sku组件 -->
-
+                            <Xtxsku :goods="detailDataList" @change="skuChange"></Xtxsku>
                             <!-- 数据组件 -->
 
                             <!-- 按钮组件 -->

@@ -16,6 +16,9 @@ import {getCategory} from '@/api/testApi'
 //定义懒加载组件并注册
 import {lazyPlugin} from '@/directives'
 
+//引入全局组件插件
+import {componentPlugin} from '@/components'
+
 
 getCategory().then((res)=>{
 
@@ -26,7 +29,12 @@ app.use(createPinia())
 app.use(router)
 app.use(ElementPlus)
 
+//注册组件插件
+app.use(componentPlugin)
+
 //注册懒加载插件
 app.use(lazyPlugin)
+
+
 
 app.mount('#app')
