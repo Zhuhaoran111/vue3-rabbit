@@ -1,5 +1,35 @@
 <script setup>
+import { ref } from 'vue'
 
+//表单校验(账户名和密码)
+const form = ref({
+    account: '',
+    passsword: '',
+    agree: true
+})
+//准备规则对象,这里的ref可写可不写---这里写法和vue不同
+const rules = ref({
+    account: [
+        { required: true, message: '用户名不能为空', trigger: 'blur' }
+    ],
+    password: [
+        { required: true, message: '密码不能为空', trigger: 'blur' },
+        { min: 6, max: 14, message: '密码超过6个字符不得超过14个字符', trigger: 'blur' }
+    ],
+    agree: [
+        {
+            validator: (rules, value, callback) => {
+                //自定义校验逻辑
+                //勾选--通过  不勾选---不通过
+                if (value) {
+                    callback()
+                } else {
+                    callback(new Error('请勾选协议'))
+                }
+            }
+        }
+    ]
+})
 </script>
 
 
@@ -24,15 +54,15 @@
                 </nav>
                 <div class="account-box">
                     <div class="form">
-                        <el-form label-position="right" label-width="60px" status-icon>
-                            <el-form-item label="账户">
-                                <el-input />
+                        <el-form :model="form" :rules="rules" label-position="right" label-width="60px" status-icon>
+                            <el-form-item prop="account" label="账户">
+                                <el-input v-model="form.account" />
                             </el-form-item>
-                            <el-form-item label="密码">
-                                <el-input />
+                            <el-form-item prop="password" label="密码">
+                                <el-input v-model="form.password" />
                             </el-form-item>
-                            <el-form-item label-width="22px">
-                                <el-checkbox size="large">
+                            <el-form-item prop="agree" label-width="22px">
+                                <el-checkbox v-model="form.agree" size="large">
                                     我已同意隐私条款和服务条款
                                 </el-checkbox>
                             </el-form-item>
