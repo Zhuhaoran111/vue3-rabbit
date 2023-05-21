@@ -14,7 +14,9 @@ const route = useRoute()  //获取路由实例
 const detailDataList = ref([])
 const getDetailList = async () => {
     const res = await getDetail(route.params.id)
+
     detailDataList.value = res.result
+
 }
 
 
@@ -53,7 +55,7 @@ onMounted(() => {
                     <div class="goods-info">
                         <div class="media">
                             <!-- 图片预览区 -->
-                            <imgViw></imgViw>
+                            <imgViw :imageList="detailDataList.mainPictures"></imgViw>
                             <!-- 统计数量 -->
                             <ul class="goods-sales">
                                 <li>

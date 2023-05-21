@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router';
+import { useMouseInElement } from '@vueuse/core';
 //以24小时请求接口
 //引入接口
 import { fetchHotGoodsAPI } from '@/api/detail'
@@ -31,6 +32,10 @@ const getHotList = async () => {
     console.log(res)
     hotList.value = res.result
 }
+
+//获取鼠标相对位置
+
+
 
 onMounted(() => {
     getHotList()
