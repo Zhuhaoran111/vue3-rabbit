@@ -1,4 +1,21 @@
 <script setup>
+//引入pinia里面的数据
+import { useUserStore } from '@/stores/user'
+const userStore = useUserStore()  //创建实例然后用.的方式去调用数据
+import { useRouter } from 'vue-router';
+const router = useRouter()
+//退出登录逻辑
+const confirm = () => {
+    //1.清除用户信息
+    userStore.clearUserInfo()
+
+    //返回登录页
+    router.push('/login')
+    ElMessage({
+        type: 'success',
+        message: '退出成功'
+    })
+}
 
 </script>
 <template>
@@ -6,10 +23,10 @@
         <div class="container">
             <ul>
                 <!-- 多模板渲染，区分登录状态和非登录状态 -->
-                <template v-if="false">
-                    <li><a href="javascript:;"><i class=" iconfont icon-user"></i>周杰伦</a></li>
+                <template v-if="userStore.userInfo.token">
+                    <li><a href="javascript:;"><i class=" iconfont icon-user"></i>{{ userStore.userInfo.account }}</a></li>
                     <li>
-                        <el-popconfirm title="确认退出吗?" confirm-button-text="确认" cancel-button-text="取消">
+                        <el-popconfirm @confirm="confirm" title="确认退出吗?" confirm-button-text="确认" cancel-button-text="取消">
                             <template #reference>
                                 <a href="javascript:;">退出登录</a>
                             </template>

@@ -12,10 +12,17 @@ export const useUserStore=defineStore('user',()=>{
       userInfo.value=res.result
       console.log(userInfo.value)
     }
+
+    //退出登录时清除用户信息
+    const clearUserInfo=()=>{
+        userInfo.value={}
+    }
+
     //3.以对象格式把state和action  return出去
     return{
         userInfo,
-        getUserInfo
+        getUserInfo,
+        clearUserInfo
     }
 },{
     persist:true
