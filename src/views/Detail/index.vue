@@ -7,6 +7,13 @@ import { getDetail } from '@/api/detail'
 import { useRoute } from 'vue-router';
 //引入组件
 import detailHot from './components/detailHot.vue'
+import { ElMessage } from 'element-plus';
+
+//引入pinia里面的store
+import { useCartStore } from '@/stores/cartStore'
+//创建实例对象
+const cartStore = useCartStore() 
+
 // import imgViw from '@/components/imgView/index.vue'
 // import XtxSku from '@/components/XtxSku/index.vue'
 //逻辑区域
@@ -18,18 +25,49 @@ const getDetailList = async () => {
 
 }
 
-//sku规格被操作时
-const skuChange = (sku) => {
-    //选择1个：无效sku
-    //选择2个：有效sku
-    console.log(sku)
-}
-
-
 //调取参数
 onMounted(() => {
     getDetailList()
 })
+
+
+//sku规格被操作时
+let skuObj ={}
+const skuChange = (sku) => {
+    //选择1个：无效sku就是空对象
+    //选择2个：有效sku就是完整的对象
+    console.log(sku)
+    skuObj=sku
+}
+
+
+//购物车数据
+const count = ref(1)
+
+const countChange = (count) => {
+     console.log(count)
+}
+
+const addCart = () => {
+    if (skuObj.skuId) {
+        //规则已经选择，触发action函数
+        cartStore.addCart({
+            id: detailDataList.value.id,
+            name: detailDataList.value.name,
+            picture: detailDataList.value.mainPictures[0],
+            price: detailDataList.value.price,
+            count: count.value,
+            skuId: skuObj.skuId,
+            attrsText: skuObj.specsText,
+            selected:true
+      })
+
+    } else {
+        //规则没有被选择  提示用户
+        ElMessage.warning('请选择规格')
+
+    }
+}
 
 
 </script>
@@ -112,10 +150,10 @@ onMounted(() => {
                             <!-- sku组件 -->
                             <Xtxsku :goods="detailDataList" @change="skuChange"></Xtxsku>
                             <!-- 数据组件 -->
-
+                            <el-input-number v-model="count"  @change="countChange" />
                             <!-- 按钮组件 -->
                             <div>
-                                <el-button size="large" class="btn">
+                                <el-button size="large" class="btn" @click="addCart">
                                     加入购物车
                                 </el-button>
                             </div>
