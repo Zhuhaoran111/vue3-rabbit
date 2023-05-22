@@ -3,7 +3,7 @@
 //引入pinia管理里面的stores数据
 import { useCartStore } from '@/stores/cartStore'
 //创建实例，然后用实例去引用数据和方法
-const cartStore =useCartStore()
+const cartStore = useCartStore()
 
 </script>
 
@@ -15,33 +15,33 @@ const cartStore =useCartStore()
         </a>
         <div class="layer">
             <div class="list">
-                
-        <div class="item" v-for="i in cartStore.cartList" :key="i">
-          <RouterLink to="">
-            <img :src="i.picture" alt="" />
-            <div class="center">
-              <p class="name ellipsis-2">
-                {{ i.name }}
-              </p>
-              <p class="attr ellipsis">{{ i.attrsText }}</p>
-            </div>
-            <div class="right">
-              <p class="price">&yen;{{ i.price }}</p>
-              <p class="count">x{{ i.count }}</p>
-            </div>
-          </RouterLink>
-           <span  @click="cartStore.deleteCart(i.skuId)">删除</span>
-           <!-- 下面的图标不渲染 -->
-          <i class="iconfont icon-close-new" @click="cartStore.deleteCart(i.skuId)"></i>
-        </div>
-       
+
+                <div class="item" v-for="i in cartStore.cartList" :key="i">
+                    <RouterLink to="">
+                        <img :src="i.picture" alt="" />
+                        <div class="center">
+                            <p class="name ellipsis-2">
+                                {{ i.name }}
+                            </p>
+                            <p class="attr ellipsis">{{ i.attrsText }}</p>
+                        </div>
+                        <div class="right">
+                            <p class="price">&yen;{{ i.price }}</p>
+                            <p class="count">x{{ i.count }}</p>
+                        </div>
+                    </RouterLink>
+                    <span @click="cartStore.deleteCart(i.skuId)">删除</span>
+                    <!-- 下面的图标不渲染 -->
+                    <i class="iconfont icon-close-new" @click="cartStore.deleteCart(i.skuId)"></i>
+                </div>
+
             </div>
             <div class="foot">
                 <div class="total">
                     <p>共 {{ cartStore.allCount }} 件商品</p>
-                    <p>&yen; {{ cartStore.allPrice.toFixed(2)  }} </p>
+                    <p>&yen; {{ cartStore.allPrice.toFixed(2) }} </p>
                 </div>
-                <el-button size="large" type="primary">去购物车结算</el-button>
+                <el-button size="large" type="primary" @click="$router.push('/cartList')">去购物车结算</el-button>
             </div>
         </div>
     </div>

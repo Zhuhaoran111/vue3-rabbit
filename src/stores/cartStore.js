@@ -37,8 +37,28 @@ export const useCartStore = defineStore('cart', () => {
         
         //2.利用filter删除元素(把符条件的筛选出来)
         cartList.value = cartList.value.filter((item) => skuId !== item.skuId)
-
     }
+
+    //单选功能
+     const singCheck=(skuId,selected)=>{
+        //通过skuId找到需要修改的哪一项，然后把selected的值改为那边传过来的值
+      //疑问：这里item.selected为什么会影响cartList里面的?????????????????????????????????????????????????????
+        const item= cartList.value.find((item)=>{
+             return item.skuId==skuId
+         })
+         item.selected=selected
+
+     }
+
+
+     //全选功能
+     const allCheck=(selected)=>{
+        cartList.value.forEach((item)=>item.selected=selected)
+     }
+
+
+
+
 
     //计算属性
     //1.总的商品数量，是所有项的count之和
@@ -54,12 +74,23 @@ export const useCartStore = defineStore('cart', () => {
         },0)
     })
 
+    //是否全选   数组方法every:用于查询数组中是否每一个元素都符合条件，如果复合则返回true,否则返回false,不满足提奥健会立马返回
+    const isAll=computed(()=>{
+          return cartList.value.every((item)=>{
+              return item.selected
+          })
+    })
+
+
     return {
         cartList,
         addCart,
         deleteCart,
         allCount,
-        allPrice
+        allPrice,
+        singCheck,
+        isAll,
+        allCheck
     }
 }, {
     persist: true
