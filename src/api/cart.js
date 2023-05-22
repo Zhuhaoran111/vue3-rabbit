@@ -30,3 +30,12 @@ export const deleteCartData=(ids)=>{
         }
     })
 }
+
+//合并购物车
+export const mergeCartList=(data)=>{
+    return httpInstance({
+        url:'/member/cart/merge',
+        method:'POST',
+        data
+    })
+}
