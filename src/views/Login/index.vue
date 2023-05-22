@@ -63,6 +63,10 @@ const login = () => {
                 message: '登录成功'
             })
             //跳转到首页replace和push的区别
+            //repalce跳转下次后退是直接跳过当前的路径
+            //例如从A——>B 在从B——>C    如果A到B使用push  B到C使用replace
+            //在C这个页面点击浏览器返回时是直接跳过B的直接到A,而不会经过B的。
+            //但是push不一样,会每一步都会经过。
             router.replace({ path: '/' })
 
         } else {
