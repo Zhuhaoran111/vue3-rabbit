@@ -3,6 +3,8 @@
 import { useCategoryStore } from '@/stores/category';
 //使用pinia中的数据,先引入
 const categoryStore = useCategoryStore() //得到一个实例对象,然后用实例对象去点
+//引入购物车组件
+import headerCart from '@/views/Layout/components/HeaderCart.vue'
 
 
 </script>
@@ -24,7 +26,7 @@ const categoryStore = useCategoryStore() //得到一个实例对象,然后用实
                 <input type="text" placeholder="搜一搜">
             </div>
             <!-- 头部购物车 -->
-
+             <headerCart></headerCart>
         </div>
     </header>
 </template>

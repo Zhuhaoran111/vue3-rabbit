@@ -16,7 +16,6 @@ export const useCartStore = defineStore('cart', () => {
         //如果item存在表示已经找到
         if (item) {
             console.log(item)
-            debugger
            //疑问：这里count++为什么会影响cartList里面的?????????????????????????????????????????????????????
             item.count++
             console.log(cartList.value.count)
@@ -25,9 +24,26 @@ export const useCartStore = defineStore('cart', () => {
         }
         
     }
+   
+     //删除购物车
+    const deleteCart = (skuId) => {
+        //思路：1.找到要删除的下标值--splice
+        //思路2：使用数组的过滤方法--filter
+        //findIndex是找出数组中的元素的下标
+        //splice(要删除的下标值,删除元素的个数)
+        //1.利用splice方法删除元素
+        // const index = cartList.value.findIndex((item) => skuId === item.skuId)
+        // cartList.value(index, 1)
+        
+        //2.利用filter删除元素(把符条件的筛选出来)
+        cartList.value = cartList.value.filter((item) => skuId !== item.skuId)
+
+    }
+
     return {
         cartList,
-        addCart
+        addCart,
+        deleteCart
     }
 }, {
     persist: true
