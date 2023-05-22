@@ -2,7 +2,7 @@ import httpInstance from "@/utils/http";
 
 export function getCategoryApi(id){
     return httpInstance({
-         url:'/category',
+         url:'/category'
          params:{
             id
          }
@@ -20,7 +20,7 @@ export function getCategoryApi(id){
 
 
  /**
- * @description: 获取导航数据
+ * @description: 获取导航数据1
  * @data { 
      categoryId: 1005000 ,
      page: 1,
