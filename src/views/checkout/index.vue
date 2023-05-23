@@ -60,6 +60,7 @@ const sumbitOrder = async () => {
         query: {
             id: orderId
         }
+        //这边是query传参，那边就是query接参
     })
     //更新购物车(清空)
     cartStore.getNewCartList()

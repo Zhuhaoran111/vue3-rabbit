@@ -1,7 +1,26 @@
 <script setup>
-import { ref } from 'vue'
-import { sumbitOrderApi } from '@/api/order'
-const payInfo = {}
+import { onMounted, ref } from 'vue'
+import { getOrderDetailApi } from '@/api/order'
+import { useRoute } from 'vue-router';//接收参数用
+
+const route=useRoute()
+const payInfo = ref({})
+const getOrderList =async  () => {
+    const res = await getOrderDetailApi(route.query.id)
+    payInfo.value=res.result
+}
+
+onMounted(() => {
+    getOrderList()
+})
+
+// 跳转支付
+//携带订单id以及回调地址
+const baseURL = 'http://pcapi-xiaotuxian-front-devtest.itheima.net/'
+const backURL = 'http://127.0.0.1:5173/paycallback'
+const redirectUrl = encodeURIComponent(backURL)
+const payUrl = `${baseURL}pay/aliPay?orderId=${route.query.id}&redirect=${redirectUrl}`
+
 </script>
 
 
