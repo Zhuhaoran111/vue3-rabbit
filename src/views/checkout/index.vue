@@ -2,8 +2,12 @@
 //引入获取订单详情的接口
 import { getCheckInfoApi } from '@/api/checkout'
 import { addAddressApi } from '@/api/address'
+import { sumbitOrderApi } from '@/api/order'
 import {ref, onMounted } from 'vue';
-
+import { useRouter } from 'vue-router'
+import { useCartStore } from '@/stores/cartStore'
+const cartStore= useCartStore() //常见pinia实例，引入方法和参数
+const router= useRouter() //路由创建实例---跳转使用
 const checkInfoData = ref({}) //订单对象
 const defaultAddress=ref({}) //默认地址
 
@@ -30,6 +34,35 @@ const confirmAddress = () => {
     defaultAddress.value = acticeAddress.value
     //选中地址后关闭弹窗
     showAddresSwitch.value=false
+}
+
+
+//提交订单
+const sumbitOrder = async () => {
+    const res = await sumbitOrderApi({
+        deliveryTimeType: 1,  //配送时间默认为1
+        payType: 1,  //支付方式 1为默认为在线支付
+        payChannel:1,//支付渠道 1为支付宝,仅支持支付宝
+        buyerMessage: '',//买家留言
+        addressId: defaultAddress.value.id,   //当前地址id
+        goods: checkInfoData.value.goods.map((item) => {
+            return {
+                skuId: item.skuId,
+                count:item.count
+            }
+            //这里返回依然是一个数组[{},{}]
+        }),
+       
+    })
+    const orderId = res.result.id
+    router.push({
+        path: '/pay',
+        query: {
+            id: orderId
+        }
+    })
+    //更新购物车(清空)
+    cartStore.getNewCartList()
 }
 
 onMounted(() => {
@@ -121,7 +154,7 @@ const checkInfo = {}  // 订单对象
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="i in checkInfo.goods" :key="i.id">
+                            <tr v-for="i in checkInfoData.goods" :key="i.id">
                                 <td>
                                     <a href="javascript:;" class="info">
                                         <img :src="i.picture" alt="">
@@ -159,25 +192,25 @@ const checkInfo = {}  // 订单对象
                     <div class="total">
                         <dl>
                             <dt>商品件数：</dt>
-                            <dd>{{ checkInfo.summary?.goodsCount }}件</dd>
+                            <dd>{{ checkInfoData.summary?.goodsCount }}件</dd>
                         </dl>
                         <dl>
                             <dt>商品总价：</dt>
-                            <dd>¥{{ checkInfo.summary?.totalPrice.toFixed(2) }}</dd>
+                            <dd>¥{{ checkInfoData.summary?.totalPrice.toFixed(2) }}</dd>
                         </dl>
                         <dl>
                             <dt>运<i></i>费：</dt>
-                            <dd>¥{{ checkInfo.summary?.postFee.toFixed(2) }}</dd>
+                            <dd>¥{{ checkInfoData.summary?.postFee.toFixed(2) }}</dd>
                         </dl>
                         <dl>
                             <dt>应付总额：</dt>
-                            <dd class="price">{{ checkInfo.summary?.totalPayPrice.toFixed(2) }}</dd>
+                            <dd class="price">{{ checkInfoData.summary?.totalPayPrice.toFixed(2) }}</dd>
                         </dl>
                     </div>
                 </div>
                 <!-- 提交订单 -->
                 <div class="submit">
-                    <el-button type="primary" size="large">提交订单</el-button>
+                    <el-button type="primary" size="large" @click="sumbitOrder">提交订单</el-button>
                 </div>
             </div>
         </div>
