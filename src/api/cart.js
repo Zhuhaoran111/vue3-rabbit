@@ -20,7 +20,7 @@ export const getCartList=()=>{
     })
 }
 
-//获取最新的购物车列表  ids是数组
+//删除购物车  ids是数组
 export const deleteCartData=(ids)=>{
     return httpInstance({
         url:'/member/cart',
@@ -31,11 +31,11 @@ export const deleteCartData=(ids)=>{
     })
 }
 
-//合并购物车
-export const mergeCartList=(data)=>{
+export const mergeCartApi = (data) => {
+    debugger
     return httpInstance({
-        url:'/member/cart/merge',
-        method:'POST',
+        url: '/member/cart/merge',
+        method: 'POST',
         data
     })
 }

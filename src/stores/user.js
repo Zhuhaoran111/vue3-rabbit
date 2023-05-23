@@ -3,7 +3,7 @@ import {defineStore} from 'pinia'
 import {ref} from 'vue'
 import { loginApi } from '@/api/user'
 import { useCartStore } from './cartStore' //引入pinia里面的函数
-import {mergeCartList} from '@/api/cart'
+import { mergeCartApi } from '@/api/cart'
 
 export const useUserStore=defineStore('user',()=>{
     const cartStore=useCartStore()  //创建实例
@@ -13,16 +13,17 @@ export const useUserStore=defineStore('user',()=>{
     const getUserInfo=async ({account,password})=>{
       const res=await  loginApi({account,password})
       userInfo.value=res.result
-      //合登录时合并购物车信息map数组的用法(进行映射)
-      const res2=await mergeCartList(cartStore.cartList.map((item)=>{
-           return{
-               skuId:item.skuId,
-               selected:item.selected,
-               count:item.count
-           }
-      }))
-      cartStore.getNewCartList()   //获取最新的购物车数据列表，这个方法已在cartStore中封装
-
+    
+    //合并购物车的操作(map映射)
+        await mergeCartApi(cartStore.cartList.map((item) => {
+            return {
+                skuId: item.skuId,
+                selected: item.selected,
+                count:item.count
+            }
+        }))
+        //获取最新的数据列表
+        cartStore.getNewCartList()  
     }
 
     //退出登录时清除用户信息
