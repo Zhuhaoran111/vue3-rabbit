@@ -9,9 +9,8 @@ const payInfo = ref({})
 const getOrderList =async  () => {
     const res = await getOrderDetailApi(route.query.id)
     payInfo.value = res.result
-    //初始化倒计时秒数
+    //初始化倒计时秒数(这里传入真实的秒数)
     start(res.result.countdown) 
-
 }
 
 onMounted(() => {
