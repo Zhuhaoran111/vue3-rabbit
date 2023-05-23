@@ -109,7 +109,7 @@ export const useCartStore = defineStore('cart', () => {
         },0)
     })
 
-    //3.是否全选   数组方法every:用于查询数组中是否每一个元素都符合条件，如果复合则返回true,否则返回false,不满足提奥健会立马返回
+    //3.是否全选   数组方法every:用于查询数组中是否每一个元素都符合条件，如果复合则返回true,否则返回false,不满足条件会立马返回
     const isAll=computed(()=>{
           return cartList.value.every((item)=>{
               return item.selected
@@ -145,7 +145,8 @@ export const useCartStore = defineStore('cart', () => {
         allCheck,
         selectedCount,
         selectPrice,
-        clearCart
+        clearCart,
+        getNewCartList
     }
 }, {
     persist: true
