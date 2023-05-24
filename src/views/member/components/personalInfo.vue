@@ -1,20 +1,26 @@
 <script setup>
 import { useUserStore } from '@/stores/user'
-import { getLikeListAPI } from '@/api/member'
+import { getLikeListAPI,getUserOrder } from '@/api/member'
 import { ref, onMounted } from 'vue';
 import goodsItem from '@/views/Home/components/goodsItem.vue'
 const userStore = useUserStore()
-const listLike = ref([])
+const listLike = ref([])  //猜你喜欢的列表
+const allOrderList = ref([]) //所有订单的列表
+
+//猜你喜欢的方法
 const getLikeList = async () => {
     const res=await getLikeListAPI({ limit: 4 })
     listLike.value=res.result
 }
 
+//获取所有订单的方法
+const getAllOrder = async () => {
+    
+}
+
 onMounted(() => {
     getLikeList()
 })
-
-
 
 </script>
 
