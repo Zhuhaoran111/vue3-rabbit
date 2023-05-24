@@ -1,5 +1,21 @@
 <script setup>
-const userStore = {}
+import { useUserStore } from '@/stores/user'
+import { getLikeListAPI } from '@/api/member'
+import { ref, onMounted } from 'vue';
+import goodsItem from '@/views/Home/components/goodsItem.vue'
+const userStore = useUserStore()
+const listLike = ref([])
+const getLikeList = async () => {
+    const res=await getLikeListAPI({ limit: 4 })
+    listLike.value=res.result
+}
+
+onMounted(() => {
+    getLikeList()
+})
+
+
+
 </script>
 
 <template>
@@ -32,7 +48,7 @@ const userStore = {}
                 <h4 data-v-bcb266e0="">猜你喜欢</h4>
             </div>
             <div class="goods-list">
-                <!-- <GoodsItem v-for="good in likeList" :key="good.id" :good="good" /> -->
+                <goodsItem v-for="good in listLike" :key="good.id" :goods="good"></goodsItem>
             </div>
         </div>
     </div>
