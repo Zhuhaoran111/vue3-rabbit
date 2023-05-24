@@ -219,9 +219,9 @@ const checkInfo = {}  // 订单对象
     <!-- 切换地址 -->
     <el-dialog v-model="showAddresSwitch" title="切换收货地址" width="30%" center>
       <div class="addressWrapper">
-        <!-- active接激活样式,我们是要点击那个切换那个用动态样式 
-        写法1：:class="item.id== acticeAddress.id ?'active':''"
-        写法2：:class="{ acitve:item.id=== acticeAddress.id }"
+        <!-- active接激活样式,我们是要点击那个切换那个用动态样式。
+         写法1：:class="item.id== acticeAddress.id ?'active':''"
+         写法2：:class="{ acitve:item.id=== acticeAddress.id }"
         -->
         <div class="text item" :class="{ 'active' :item.id == acticeAddress.id }" @click="clickAddressCard(item)" v-for="item in checkInfoData.userAddresses"  :key="item.id">
           <ul>
