@@ -1,7 +1,6 @@
 <script setup>
 import { useCartStore } from '@/stores/cartStore'
 const cartStore = useCartStore()
-const cartList = []
 
 //单选回调
 const changeCheckbox = (i, selected) => {
@@ -16,7 +15,10 @@ const changeAllCheck = (selected) => {
     cartStore.allCheck(selected)
 }
 
-
+//删除购物车列表-----------result是false？？？？？？？？？？？？？？？？
+const delCart = async (item) => {
+    cartStore.deleteCart(item.skuId)
+}
 
 </script>
 
