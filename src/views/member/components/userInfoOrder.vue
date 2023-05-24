@@ -27,6 +27,12 @@ const getAllOrder = async () => {
 
 }
 
+//tab切换的方法，把索引值获取到
+const changeTab = (type) => {
+    params.value.orderState = type
+      getAllOrder()
+}
+
 
 onMounted(() => {
     getAllOrder()
@@ -38,10 +44,9 @@ onMounted(() => {
 
 <template>
     <div class="order-container">
-        <el-tabs>
+        <el-tabs @tab-change="changeTab">
             <!-- tab切换 -->
             <el-tab-pane v-for="item in tabTypes" :key="item.name" :label="item.label" />
-
             <div class="main-container">
                 <div class="holder-container" v-if="orderList.length === 0">
                     <el-empty description="暂无订单数据" />
