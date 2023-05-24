@@ -17,7 +17,8 @@ const changeAllCheck = (selected) => {
 
 //删除购物车列表-----------result是false？？？？？？？？？？？？？？？？
 const delCart = async (item) => {
-    cartStore.deleteCart(item.skuId)
+    cartStore
+    .deleteCart(item.skuId)
 }
 
 </script>
