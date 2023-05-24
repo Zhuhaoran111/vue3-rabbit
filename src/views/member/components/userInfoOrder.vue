@@ -14,6 +14,9 @@ const tabTypes = [
 // 订单列表
 const orderList = ref([])
 
+//数据的总数
+const total = ref(0)  
+
 //获取所有订单的方法
 const params = ref({
         orderState: 0,
@@ -22,9 +25,9 @@ const params = ref({
 })
 const getAllOrder = async () => {
     const res = await getUserOrder(params.value)
-    console.log(res)
     orderList.value = res.result.items
-
+    // 存入总条数
+    total.value = res.result.counts
 }
 
 //tab切换的方法，把索引值获取到
@@ -33,7 +36,28 @@ const changeTab = (type) => {
       getAllOrder()
 }
 
+//切换分页的方法
+const pageChange = (page) => {
+    //获取到最新的page
+    params.value.page = page
+      getAllOrder()
+}
 
+//订单显示的适配
+const fomartPayState = (payState) => {
+    const setMap = {
+         1: '待付款',
+        2: '待发货',
+        3: '待收货',
+        4: '待评价',
+        5: '已完成',
+        6: '已取消'
+    }
+     return setMap[payState]
+ }
+
+
+//初始化调用
 onMounted(() => {
     getAllOrder()
 })
@@ -84,7 +108,7 @@ onMounted(() => {
                                 </ul>
                             </div>
                             <div class="column state">
-                                <p>{{ order.orderState }}</p>
+                                <p>{{ fomartPayState(order.orderState) }}</p>
                                 <p v-if="order.orderState === 3">
                                     <a href="javascript:;" class="green">查看物流</a>
                                 </p>
@@ -120,7 +144,11 @@ onMounted(() => {
                     </div>
                     <!-- 分页 -->
                     <div class="pagination-container">
-                        <el-pagination background layout="prev, pager, next" />
+                        <el-pagination
+                          @current-change="pageChange" 
+                          :total="total"  
+                          :page-size="params.pageSize"  
+                          background layout="prev, pager, next" />
                     </div>
                 </div>
             </div>

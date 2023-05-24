@@ -6,10 +6,12 @@
             <div class="user-manage">
                 <h4>我的账户</h4>
                 <div class="links">
-                    <RouterLink to="/member/user">个人中心</RouterLink>
+                     <!-- 二级路由 to后面是跳转的路径 -->
+                    <RouterLink to="/member">个人中心</RouterLink>
                 </div>
                 <h4>交易管理</h4>
                 <div class="links">
+                     <!-- 二级路由 -->
                     <RouterLink to="/member/order">我的订单</RouterLink>
                 </div>
             </div>

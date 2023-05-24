@@ -55,7 +55,8 @@ const router = createRouter({
           component: member,
           children: [
             {
-              path: 'user',
+              //访问二级路由时，想要三级路由默认也要显示，就要把下面这个三级路由的path置空
+              path: '',
               component: personalInfo
             },
             {
