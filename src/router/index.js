@@ -8,6 +8,9 @@ import Detail from '@/views/Detail/index.vue'
 import cartList from '@/views/cartList/index.vue'
 import checkout from '@/views/checkout/index.vue'
 import pay from '@/views/pay/index.vue'
+import member from '@/views/member/index.vue'
+import personalInfo from '@/views/member/components/personalInfo.vue'
+import userInfoOrder from '@/views/member/components/userInfoOrder.vue'
 //createRouter：创建路由实例
 //createWebHistory：创建history模式的路由
 
@@ -46,6 +49,20 @@ const router = createRouter({
         {
           path: 'pay',
           component: pay
+        },
+        {
+          path:'member',
+          component: member,
+          children: [
+            {
+              path: 'user',
+              component: personalInfo
+            },
+            {
+              path: 'order',
+              component: userInfoOrder
+            }
+            ]
         }
       ]
      },
