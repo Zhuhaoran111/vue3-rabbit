@@ -20,6 +20,8 @@ npm install
 
 ```sh
 npm run dev
+
+需要注意运行此项目node版本要在16以上，否则会报错
 ```
 
 ### Compile and Minify for Production

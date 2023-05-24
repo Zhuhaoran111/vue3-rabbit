@@ -8,6 +8,7 @@ import Detail from '@/views/Detail/index.vue'
 import cartList from '@/views/cartList/index.vue'
 import checkout from '@/views/checkout/index.vue'
 import pay from '@/views/pay/index.vue'
+import playBack from '@/views/pay/playBack.vue'
 import member from '@/views/member/index.vue'
 import personalInfo from '@/views/member/components/personalInfo.vue'
 import userInfoOrder from '@/views/member/components/userInfoOrder.vue'
@@ -49,6 +50,10 @@ const router = createRouter({
         {
           path: 'pay',
           component: pay
+        },
+        {
+          path: 'paycallback',
+          component: playBack
         },
         {
           path:'member',
