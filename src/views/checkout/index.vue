@@ -33,7 +33,8 @@ const confirmAddress = () => {
     //把选中的地址赋值给默认的地址
     defaultAddress.value = acticeAddress.value
     //选中地址后关闭弹窗
-    showAddresSwitch.value=false
+    showAddresSwitch.value = false
+  
 }
 
 
@@ -90,13 +91,14 @@ const addressForm = ref({
 const formRef = ref(null)
 //地址保存-------这个后面待优化
 const saveAddress = () => {
-    
     formRef.value.validate(async (valid) => { 
         if (valid) {
             const params = {
                 ...addressForm.value
              }
-             const res=await addAddressApi(params)
+            const res = await addAddressApi(params)
+            showAddAddress.value = false
+            getCheckInfo()
           }
     })
 }
@@ -279,9 +281,6 @@ const checkInfo = {}  // 订单对象
             </span>
           </template>
         </el-dialog>
-
-
-
 </template>
 
 <style scoped lang="scss">
